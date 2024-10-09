@@ -23,16 +23,16 @@ def generate_password():
     random.shuffle(password_list)
     # join is used to join the element in a list/tuple and "" means the elements are sparated by whatever is inside ""
     password = "".join(password_list)
-    entry3.insert(0, password)
+    password_entry.insert(0, password)
     # used to copy the string in the clipboard
     pyperclip.copy(password)
 
 
 """-------------------------Saved Password--------------------------"""
 def save():
-    website = entry1.get()
-    email = entry2.get()
-    password = entry3.get()
+    website = website_entry.get()
+    email = email_entry.get()
+    password = password_entry.get()
     new_data = {
         website:{
             "email": email,
@@ -72,12 +72,12 @@ def save():
         # finally executes irrespective of the above exception handling conditions
         finally:
             # clears the input from start to end
-            entry1.delete(0, END)
-            entry3.delete(0, END)
+            website_entry.delete(0, END)
+            password_entry.delete(0, END)
 
 """-------------------------Saved Password--------------------------"""
 def find_password():
-    website = entry1.get()
+    website = website_entry.get()
     try:
         with open("data.json") as data_file:
             data = json.load(data_file)
@@ -91,7 +91,7 @@ def find_password():
         else:
             messagebox.showinfo(title="Oops! Error", message="Website Not Found.")
 
-            
+
 """----------------------------UI Setup-----------------------------"""
 # creating canvas in window
 
@@ -105,46 +105,35 @@ lock = PhotoImage(file = r"C:\Users\aanand2\OneDrive - Capgemini\Desktop\Python\
 canvas.create_image(100, 100, image = lock)
 canvas.grid(column=2, row=1)
 
-label1 = Label(text="Website:", font=("Arial", 10))
-label1.grid(column=1,row=2)
+website_label = Label(text="Website:", font=("Arial", 10))
+website_label.grid(column=1,row=2)
 
-label2 = Label(text="Email/Username:", font=("Arial", 10))
-label2.grid(column=1,row=3)
+email_label = Label(text="Email/Username:", font=("Arial", 10))
+email_label.grid(column=1,row=3)
 
-label3 = Label(text="Password:", font=("Arial", 10))
-label3.grid(column=1,row=4)
+password_label = Label(text="Password:", font=("Arial", 10))
+password_label.grid(column=1,row=4)
 
-entry1 = Entry(width=34)
-entry1.grid(column=2,row=2)
+website_entry = Entry(width=34)
+website_entry.grid(column=2,row=2)
 # moves the cursur to ths entry
-entry1.focus()
+website_entry.focus()
 
-entry2 = Entry(width=52)
-entry2.grid(column=2,row=3, columnspan=2)
+email_entry = Entry(width=52)
+email_entry.grid(column=2,row=3, columnspan=2)
 # pre filled the entry block with this text ,0 represent to filled it at the start
-entry2.insert(0, "amitanand@gmail.com")
+email_entry.insert(0, "amitanand@gmail.com")
 
-entry3 = Entry(width=34)
-entry3.grid(column=2,row=4)
+password_entry = Entry(width=34)
+password_entry.grid(column=2,row=4)
 
-button1 = Button(text="Generate Password", command=generate_password)
-button1.grid(column=3,row=4)
+generate_button = Button(text="Generate Password", command=generate_password)
+generate_button.grid(column=3,row=4)
 
-button2 = Button(text="Add", width=44, command=save)
-button2.grid(column=2,row=5, columnspan=2)
+add_button = Button(text="Add", width=44, command=save)
+add_button.grid(column=2,row=5, columnspan=2)
 
-button3 = Button(text="Search",width = 14, command=find_password)
-button3.grid(column=3,row=2)
-
-
-
-
-
-
-
-
-
-
-
+search_button = Button(text="Search",width = 14, command=find_password)
+search_button.grid(column=3,row=2)
 
 window.mainloop()
