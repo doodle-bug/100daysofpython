@@ -1,0 +1,4 @@
+The main_modified file is the same project with few tweaks:
+1. It uses .json file instead of the .txt file.
+2. Exception handling is used.
+3. Search functionality is added to search the already password saved.
